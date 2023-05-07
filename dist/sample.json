@@ -1,0 +1,71 @@
+{
+  "memberCount": 11,
+  "members": [
+    {
+      "name": "出雲",
+      "point": 8,
+      "joining": true,
+      "handicap": 0
+    },
+    {
+      "name": "nyaha",
+      "point": 7,
+      "joining": true,
+      "handicap": 0
+    },
+    {
+      "name": "Rain",
+      "point": 7,
+      "joining": true,
+      "handicap": 0
+    },
+    {
+      "name": "ユキニャ",
+      "point": 6,
+      "joining": true,
+      "handicap": 0
+    },
+    {
+      "name": "すばーと",
+      "point": 6,
+      "joining": true,
+      "handicap": 0
+    },
+    {
+      "name": "たこたこ",
+      "point": 5,
+      "joining": true,
+      "handicap": 0
+    },
+    {
+      "name": "高山",
+      "point": 5,
+      "joining": true,
+      "handicap": 0
+    },
+    {
+      "name": "あるみぃ",
+      "point": 5,
+      "joining": true,
+      "handicap": 0
+    },
+    {
+      "name": "柊",
+      "point": 5,
+      "joining": true,
+      "handicap": 0
+    },
+    {
+      "name": "ぞに",
+      "point": 4,
+      "joining": true,
+      "handicap": 0
+    },
+    {
+      "name": "べ",
+      "point": 3,
+      "joining": true,
+      "handicap": 0
+    }
+  ]
+}

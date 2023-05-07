@@ -1,0 +1,90 @@
+table#memberTable {
+  border-collapse: collapse;
+}
+
+table#memberTable,
+#memberTable th,
+#memberTable td {
+  border: 1px black solid;
+}
+
+.name-cell input,
+.point-cell input,
+.handi-cell input,
+#random-point,
+#teamNum,
+#minMember,
+#maxMember {
+  width: 70px;
+  height: 30px;
+  font-size: large;
+}
+
+.name-cell input {
+  width: 130px;
+}
+
+/* 数値の入力欄にスピナーを常時表示する */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+  padding-top: 10px;
+  height: 20px;
+}
+
+.input-name.error {
+  color: #630015;
+  border-color: #c20c33;
+  background-color: #ffd9e1;
+}
+
+.input-point.error {
+  color: #630015;
+  border-color: #c20c33;
+  background-color: #ffd9e1;
+}
+
+table#resultTable {
+  border-collapse: collapse;
+}
+
+table#resultTable,
+#resultTable th,
+#resultTable td {
+  border: 1px black solid;
+}
+
+.teamHeader {
+  color: #000000;
+  background-color: #aaffbc;
+}
+
+.teamTotal {
+  color: #000000;
+  background-color: #f7dd4b;
+}
+
+.teamTotalValue {
+  color: #000000;
+  background-color: #eaf5c1;
+}
+
+.teamMedian {
+  color: #000000;
+  background-color: #fd7de8;
+}
+
+.teamMedianValue {
+  color: #000000;
+  background-color: #f0a4ff;
+}
+
+.teamAverage {
+  color: #000000;
+  background-color: #49c4fd;
+}
+
+.teamAverageValue {
+  color: #000000;
+  background-color: #a4deff;
+}
