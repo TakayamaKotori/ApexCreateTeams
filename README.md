@@ -1,2 +1,5 @@
 # ApexCreateTeams
-APEXでチーム分けを支援するツール
+
+APEX でチーム分けを支援するツール
+
+grunt watch

@@ -40,6 +40,12 @@ module.exports = function (grunt) {
           {
             expand: true,
             flatten: true,
+            src: ["node_modules/jquery-ui/dist/themes/base/jquery-ui.min.css"],
+            dest: "dist/",
+          },
+          {
+            expand: true,
+            flatten: true,
             src: ["src/html/*"],
             dest: "dist/",
           },
@@ -61,7 +67,12 @@ module.exports = function (grunt) {
 
     watch: {
       js: {
-        files: ["src/js/*.js"],
+        files: [
+          "src/js/*.js",
+          "src/html/*.html",
+          "src/css/*.css",
+          "src/json/*.json",
+        ],
         tasks: ["clean", "concat", "uglify", "copy"],
       },
     },
@@ -73,6 +84,5 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-watch");
-  // grunt.registerTask("default", ["clean"]);
   grunt.registerTask("default", ["clean", "concat", "uglify", "copy"]);
 };
