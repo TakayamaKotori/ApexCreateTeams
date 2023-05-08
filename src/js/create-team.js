@@ -1,3 +1,5 @@
+"use strict";
+
 $(function () {
   // メンバー数
   let memberCount = 1;
@@ -79,7 +81,7 @@ $(function () {
   $("#MemberBody").sortable();
 
   // ドラッグによるソート時のイベント
-  $("#MemberBody").bind("sortstop", memberTableNumbering);
+  $("#MemberBody").on("sortstop", memberTableNumbering);
 
   // テーブルのID振り直し
   function memberTableNumbering() {
@@ -144,7 +146,7 @@ $(function () {
   }
 
   // ヘルプテキスト表示切替ボタン押下
-  $("#helpMessageBtn").click(function () {
+  $(document).on("click", "#helpMessageBtn", function () {
     if (helpMessageAreaVisible) {
       helpMessageAreaVisible = false;
       $("#helpMessageArea").css("display", "none");
@@ -155,7 +157,7 @@ $(function () {
   });
 
   // 受け渡し用エリア表示切替ボタン押下
-  $("#exportView").click(function () {
+  $(document).on("click", "#exportView", function () {
     if (importAreaVisible) {
       importAreaVisible = false;
       $("#exportArea").css("display", "none");
@@ -166,7 +168,7 @@ $(function () {
   });
 
   // メンバー操作欄表示切替ボタン押下
-  $("#mem-visible").click(function () {
+  $(document).on("click", "#mem-visible", function () {
     if (memberControlVisible) {
       memberControlVisible = false;
       $("#member").css("display", "none");
@@ -179,7 +181,7 @@ $(function () {
   });
 
   // 更新履歴エリア表示切替ボタン押下
-  $("#changeLogBtn").click(function () {
+  $(document).on("click", "#changeLogBtn", function () {
     if (changeLogAreaVisible) {
       changeLogAreaVisible = false;
       $("#changeLogArea").css("display", "none");
@@ -189,8 +191,8 @@ $(function () {
     }
   });
 
-  // 追加ボタン押下
-  $("#loadJson").click(function () {
+  // 貼り付けたらボタンで読み込みボタン押下
+  $(document).on("click", "#loadJson", function () {
     let importElm = $("#exportImport");
     let loadJsonStr = importElm.val();
     const jsonObj = JSON.parse(loadJsonStr);
@@ -204,14 +206,14 @@ $(function () {
   });
 
   // 追加ボタン押下
-  $("#mem-add").click(function () {
+  $(document).on("click", "#mem-add", function () {
     addRow();
     members.push({ name: "", point: 5, joining: true });
     nowMember();
   });
 
   // 参加状態全切り替えボタン押下
-  $("#check-all").click(function () {
+  $(document).on("click", "#check-all", function () {
     const result = members.filter((member) => !member.joining);
     if (result.length > 0) {
       for (let i = 0; i < members.length; i++) {
@@ -226,13 +228,13 @@ $(function () {
   });
 
   // ポイントでソートボタン押下
-  $("#point-sort").click(function () {
+  $(document).on("click", "#point-sort", function () {
     pointSort();
     refreshTable();
   });
 
   // ハンデクリアボタン押下
-  $("#clear-handi").click(function () {
+  $(document).on("click", "#clear-handi", function () {
     for (let i = 0; i < members.length; i++) {
       members[i].handicap = 0;
     }
@@ -240,7 +242,7 @@ $(function () {
   });
 
   // ガンゲームボタン押下
-  $("#gungame-preset").click(function () {
+  $(document).on("click", "#gungame-preset", function () {
     teamNum = gungamePreset.teamNum;
     minMember = gungamePreset.minMember;
     maxMember = gungamePreset.maxMember;
@@ -248,7 +250,7 @@ $(function () {
   });
 
   // チームデスマッチボタン押下
-  $("#tdm-preset").click(function () {
+  $(document).on("click", "#tdm-preset", function () {
     teamNum = tdmPreset.teamNum;
     minMember = tdmPreset.minMember;
     maxMember = tdmPreset.maxMember;
@@ -256,7 +258,7 @@ $(function () {
   });
 
   // コントロールボタン押下
-  $("#control-preset").click(function () {
+  $(document).on("click", "#control-preset", function () {
     teamNum = controlPreset.teamNum;
     minMember = controlPreset.minMember;
     maxMember = controlPreset.maxMember;
@@ -273,7 +275,7 @@ $(function () {
   }
 
   // 実行ボタン押下
-  $("#create-teams").click(function () {
+  $(document).on("click", "#create-teams", function () {
     // プレイヤーをチームに分ける
     const players = members.filter((member) => member.joining);
     const result = createTeams(players, teamNum, minMember, maxMember);
@@ -558,7 +560,6 @@ $(function () {
       }
     }
     teamSizes.sort((a, b) => a - b);
-    console.log(teamSizes);
 
     // チームごとのメンバー格納配列
     const teams = [];
@@ -595,110 +596,6 @@ $(function () {
       }
     }
     return teams;
-  }
-
-  function viewTeams(viewTeamItems) {
-    $("#teamBody tr").remove();
-
-    for (let i = 0; i < viewTeamItems.length; i++) {
-      let sumElm =
-        '<td class="teamTotal">合計値</td><td class="teamTotalValue">' +
-        Math.round(viewTeamItems[i].total * 10) / 10 +
-        "</td>";
-      let memberElmArr = [];
-      let pointArr = [];
-      for (let j = 0; j < viewTeamItems[i].members.length; j++) {
-        pointArr.push(viewTeamItems[i].members[j].point);
-
-        let memberTdElm =
-          "<td>" +
-          viewTeamItems[i].members[j].name +
-          "</td><td>" +
-          viewTeamItems[i].members[j].point +
-          "</td>";
-        memberElmArr.push(memberTdElm);
-      }
-
-      // 真ん中の位置を取得
-      const medianIndex = (pointArr.length / 2) | 0;
-
-      // ソート
-      const medianArr = pointArr.sort(function (x, y) {
-        return x - y;
-      });
-      let median = 0;
-      // 中央値結果
-      if (medianArr.length % 2) {
-        median = medianArr[medianIndex];
-      } else {
-        median = (medianArr[medianIndex - 1] + medianArr[medianIndex]) / 2;
-      }
-
-      let medianElm =
-        '<td class="teamMedian">中央値</td><td class="teamMedianValue">' +
-        Math.round(median * 10) / 10 +
-        "</td>";
-
-      // 平均値用に合計
-      const sum = pointArr.reduce(function (acc, cur) {
-        return acc + cur;
-      });
-
-      let average = sum / pointArr.length;
-      let averageElm =
-        '<td class="teamAverage">平均値</td><td class="teamAverageValue">' +
-        Math.round(average * 10) / 10 +
-        "</td>";
-
-      let dataRowElms = "";
-      let dataRowLength = memberElmArr.length < 3 ? 3 : memberElmArr.length;
-
-      let memberColLoss = memberElmArr.length < 3 ? 3 - memberElmArr.length : 0;
-      let evaluationColLoss =
-        memberElmArr.length > 3 ? memberElmArr.length - 3 : 0;
-
-      let memberLossFillFlg = true;
-      let evaluationLossFillFlg = true;
-
-      for (let j = 0; j < dataRowLength; j++) {
-        dataRowElms += "<tr>";
-        if (memberElmArr.length > j) {
-          dataRowElms += memberElmArr[j];
-        } else {
-          if (memberLossFillFlg && memberColLoss > 0) {
-            dataRowElms += '<td colspan="2" ';
-            dataRowElms += "rowspan=" + memberColLoss;
-            dataRowElms += "></td>";
-            memberLossFillFlg = false;
-          }
-        }
-        if (j == 0) {
-          // 合計値
-          dataRowElms += sumElm;
-        } else if (j == 1) {
-          // 中央値
-          dataRowElms += medianElm;
-        } else if (j == 2) {
-          // 平均値
-          dataRowElms += averageElm;
-        } else {
-          if (evaluationLossFillFlg && evaluationColLoss > 0) {
-            dataRowElms += '<td colspan="2" ';
-            dataRowElms += "rowspan=" + evaluationColLoss;
-            dataRowElms += "></td>";
-            evaluationLossFillFlg = false;
-          }
-        }
-        dataRowElms += "</tr>";
-      }
-
-      let teamElm =
-        '<tr class="teamHeader"><td colspan="4">チーム' +
-        (i + 1) +
-        "</td></tr>" +
-        dataRowElms;
-      $("#teamBody").append(teamElm);
-    }
   }
 
   // 初期動作。ローカルストレージが存在したら前回データの読み込み実行
