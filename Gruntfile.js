@@ -7,7 +7,11 @@ module.exports = function (grunt) {
         separator: ";",
       },
       dist: {
-        src: ["src/js/create-team.js", "src/js/testmodule.js"],
+        src: [
+          "src/js/index.js",
+          "src/js/create-team.js",
+          "src/js/testmodule.js",
+        ],
         dest: "gruntTask/concat/app.js",
       },
     },
@@ -43,6 +47,19 @@ module.exports = function (grunt) {
             src: ["node_modules/jquery-ui/dist/themes/base/jquery-ui.min.css"],
             dest: "dist/",
           },
+          {
+            expand: true,
+            flatten: true,
+            src: ["node_modules/jquery-ui/dist/themes/base/images/*"],
+            dest: "dist/images/",
+          },
+          {
+            expand: true,
+            flatten: true,
+            src: ["node_modules/chart.js/dist/chart.umd.js"],
+            dest: "dist/",
+          },
+          // minify不要の資材をコピー
           {
             expand: true,
             flatten: true,
