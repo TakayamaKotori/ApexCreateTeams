@@ -1,6 +1,7 @@
 "use strict";
 
 $(function () {
+  // 変数
   let data = {
     // メンバーの情報
     members: [{ name: "", point: 5, joining: true, handicap: 0 }],
