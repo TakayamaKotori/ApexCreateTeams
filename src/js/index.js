@@ -179,7 +179,7 @@ $(function () {
       data.minMember,
       data.maxMember
     );
-
+    // 結果表示
     viewTeams(result);
   });
 
